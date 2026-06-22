@@ -320,6 +320,7 @@ const EMAILJS_SERVICE_ID         = 'service_jfys8eh';
 const EMAILJS_TEMPLATE_ID        = 'template_4aamvda';
 const EMAILJS_AUTOREPLY_TEMPLATE = 'template_67wtmzs';
 (function(){ emailjs.init(EMAILJS_PUBLIC_KEY); })();
+
 function submitWaitlist() {
   const firstName = document.getElementById('firstName').value.trim();
   const email     = document.getElementById('email').value.trim();
@@ -332,19 +333,25 @@ function submitWaitlist() {
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { emailErr.style.display = 'block'; valid = false; }
   if (!valid) return;
   btn.disabled = true; btn.textContent = 'Joining...';
-  var params = { from_name: firstName, from_email: email, name: firstName, email: email, timestamp: new Date().toLocaleString(), message: firstName + ' (' + email + ') joined the waitlist on ' + new Date().toLocaleString() };
-  Promise.all([
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params),
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_AUTOREPLY_TEMPLATE, params)
-  ]).then(function() {
-    document.getElementById('formInner').style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
-  }).catch(function(err) {
-    console.error('EmailJS error:', err);
-    btn.disabled = false; btn.textContent = 'Join the Waitlist';
-    alert('Something went wrong. Please try again.');
-  });
+  var params = {
+    from_name: firstName, from_email: email,
+    name: firstName, email: email,
+    timestamp: new Date().toLocaleString(),
+    message: firstName + ' (' + email + ') joined the waitlist on ' + new Date().toLocaleString()
+  };
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params)
+    .then(function() {
+      document.getElementById('formInner').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_AUTOREPLY_TEMPLATE, params)
+        .catch(function(err) { console.warn('Auto-reply failed:', err); });
+    }).catch(function(err) {
+      console.error('EmailJS error:', err);
+      btn.disabled = false; btn.textContent = 'Join the Waitlist';
+      alert('Error: ' + JSON.stringify(err));
+    });
 }
+
 function toggleFaq(btn) { const item = btn.closest('.faq-item'); const isOpen = item.classList.contains('open'); document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open')); if (!isOpen) item.classList.add('open'); }
 function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
 function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
