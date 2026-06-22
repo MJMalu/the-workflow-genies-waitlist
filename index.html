@@ -9,396 +9,125 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <style>
-
-/* ══════════ RESET ══════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  background: #3E1018;
-  color: #F5F0EC;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
+body { font-family: 'DM Sans', system-ui, sans-serif; background: #3E1018; color: #F5F0EC; line-height: 1.6; overflow-x: hidden; }
 a { text-decoration: none; color: inherit; }
-
-/* ══════════ TOKENS ══════════ */
 :root {
-  --bg:        #3E1018;
-  --bg2:       #4a1420;
-  --bg3:       #5c1a2e;
-  --gold:      #C9A96E;
-  --gold-dim:  rgba(201,169,110,0.15);
-  --gold-dim2: rgba(201,169,110,0.08);
-  --cream:     #F5F0EC;
-  --cream-dim: rgba(245,240,236,0.55);
-  --lavender:  #C4B5D0;
-  --lav-dim:   rgba(196,181,208,0.2);
-  --border:    rgba(201,169,110,0.2);
-  --border2:   rgba(245,240,236,0.1);
-  --radius:    2px;
+  --bg: #3E1018; --bg2: #4a1420; --bg3: #5c1a2e;
+  --gold: #C9A96E; --gold-dim: rgba(201,169,110,0.15); --gold-dim2: rgba(201,169,110,0.08);
+  --cream: #F5F0EC; --cream-dim: rgba(245,240,236,0.55);
+  --lavender: #C4B5D0;
+  --border: rgba(201,169,110,0.2); --border2: rgba(245,240,236,0.1);
 }
-
-/* ══════════ NAV ══════════ */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 24px 48px;
-  background: rgba(62,16,24,0.97);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  transition: padding .4s;
-}
-nav.scrolled {
-  padding: 16px 48px;
-}
-.nav-logo {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--cream);
-  letter-spacing: .5px;
-}
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 24px 48px; background: rgba(62,16,24,0.97); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); transition: padding .4s; }
+nav.scrolled { padding: 16px 48px; }
+.nav-logo { font-family: 'Playfair Display', serif; font-style: italic; font-size: 18px; font-weight: 400; color: var(--cream); }
 .nav-links { display: flex; align-items: center; gap: 36px; }
-.nav-links a {
-  font-size: 13px; font-weight: 400; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--cream-dim);
-  transition: color .2s;
-}
+.nav-links a { font-size: 13px; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cream-dim); transition: color .2s; }
 .nav-links a:hover { color: var(--gold); }
-.hamburger {
-  display: none; flex-direction: column; gap: 5px;
-  background: none; border: none; cursor: pointer; padding: 4px;
-}
-.hamburger span {
-  display: block; width: 22px; height: 1px;
-  background: var(--cream); transition: all .3s;
-}
-.mobile-menu {
-  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--bg); z-index: 99;
-  flex-direction: column; align-items: center; justify-content: center;
-  gap: 36px;
-}
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 1px; background: var(--cream); transition: all .3s; }
+.mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 36px; }
 .mobile-menu.open { display: flex; }
-.mobile-menu a {
-  font-size: 22px; font-family: 'Playfair Display', serif;
-  font-style: italic; color: var(--cream);
-  letter-spacing: .5px;
-}
-.mobile-close {
-  position: absolute; top: 24px; right: 28px;
-  background: none; border: none; color: var(--cream-dim);
-  font-size: 28px; cursor: pointer;
-}
-
-/* ══════════ HERO ══════════ */
-.hero {
-  min-height: 100vh;
-  display: flex; align-items: center; justify-content: center;
-  padding: 140px 48px 100px;
-  position: relative; overflow: hidden;
-  text-align: center;
-}
-.hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(201,169,110,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-handle {
-  position: absolute; top: 30px; left: 48px;
-  font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
-  color: var(--cream-dim); font-weight: 400;
-}
+.mobile-menu a { font-size: 22px; font-family: 'Playfair Display', serif; font-style: italic; color: var(--cream); }
+.mobile-close { position: absolute; top: 24px; right: 28px; background: none; border: none; color: var(--cream-dim); font-size: 28px; cursor: pointer; }
+.hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 140px 48px 100px; position: relative; overflow: hidden; text-align: center; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(201,169,110,0.06) 0%, transparent 70%); pointer-events: none; }
 .hero-inner { max-width: 680px; position: relative; z-index: 1; }
-
-.hero-eyebrow {
-  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--gold); font-weight: 400;
-  margin-bottom: 32px; display: block;
-}
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-style: italic; font-weight: 400;
-  font-size: clamp(40px, 7vw, 78px);
-  line-height: 1.1; letter-spacing: -1px;
-  color: var(--cream);
-  margin-bottom: 24px;
-}
-.hero-sub {
-  font-size: 16px; font-weight: 300;
-  color: var(--cream-dim); max-width: 480px;
-  margin: 0 auto 48px; line-height: 1.8; letter-spacing: .2px;
-}
-
-/* ── FORM ── */
-.waitlist-form {
-  max-width: 420px; margin: 0 auto;
-}
+.hero-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 400; margin-bottom: 32px; display: block; }
+.hero h1 { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: clamp(40px, 7vw, 78px); line-height: 1.1; letter-spacing: -1px; color: var(--cream); margin-bottom: 24px; }
+.hero-sub { font-size: 16px; font-weight: 300; color: var(--cream-dim); max-width: 480px; margin: 0 auto 48px; line-height: 1.8; }
+.waitlist-form { max-width: 420px; margin: 0 auto; }
 .form-row { display: flex; flex-direction: column; gap: 12px; }
-.form-field input {
-  width: 100%;
-  background: transparent;
-  border: none; border-bottom: 1px solid var(--border);
-  padding: 14px 0;
-  font-size: 14px; color: var(--cream);
-  font-family: 'DM Sans', sans-serif; letter-spacing: .5px;
-  outline: none; transition: border-color .3s;
-}
+.form-field input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border); padding: 14px 0; font-size: 14px; color: var(--cream); font-family: 'DM Sans', sans-serif; letter-spacing: .5px; outline: none; transition: border-color .3s; }
 .form-field input::placeholder { color: rgba(245,240,236,0.3); }
 .form-field input:focus { border-bottom-color: var(--gold); }
 .form-error { font-size: 11px; color: var(--lavender); margin-top: 4px; display: none; }
-.btn-primary {
-  width: 100%; margin-top: 24px;
-  padding: 16px; background: transparent;
-  border: 1px solid var(--gold); color: var(--gold);
-  font-size: 11px; font-weight: 400; letter-spacing: 3px;
-  text-transform: uppercase; font-family: 'DM Sans', sans-serif;
-  cursor: pointer; transition: all .3s;
-}
+.btn-primary { width: 100%; margin-top: 24px; padding: 16px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-size: 11px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all .3s; }
 .btn-primary:hover { background: var(--gold); color: var(--bg); }
 .btn-primary:disabled { opacity: .4; cursor: not-allowed; }
-.form-success {
-  display: none; text-align: center; padding: 28px 0;
-  font-family: 'Playfair Display', serif; font-style: italic;
-  font-size: 20px; color: var(--gold);
-}
-.form-note {
-  font-size: 11px; color: rgba(245,240,236,0.25);
-  text-align: center; margin-top: 16px; letter-spacing: .5px;
-}
-
-/* ── DIVIDER ── */
-.divider {
-  display: flex; align-items: center; gap: 20px;
-  max-width: 600px; margin: 0 auto;
-  padding: 0 48px;
-}
+.form-success { display: none; text-align: center; padding: 28px 0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 20px; color: var(--gold); }
+.form-note { font-size: 11px; color: rgba(245,240,236,0.25); text-align: center; margin-top: 16px; letter-spacing: .5px; }
+.divider { display: flex; align-items: center; gap: 20px; max-width: 600px; margin: 0 auto; padding: 0 48px; }
 .divider-line { flex: 1; height: 1px; background: var(--border); }
 .divider-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); opacity: .5; }
-
-/* ══════════ SECTION BASE ══════════ */
 section { padding: 96px 48px; }
 .container { max-width: 1080px; margin: 0 auto; }
-.section-eyebrow {
-  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--gold); font-weight: 400; margin-bottom: 20px; display: block;
-}
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-style: italic; font-weight: 400;
-  font-size: clamp(28px, 4vw, 48px);
-  color: var(--cream); line-height: 1.2;
-  letter-spacing: -.5px; margin-bottom: 16px;
-}
-.section-sub {
-  font-size: 15px; font-weight: 300;
-  color: var(--cream-dim); line-height: 1.8; max-width: 520px;
-}
-
-/* ══════════ BEGINNER ══════════ */
+.section-eyebrow { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 400; margin-bottom: 20px; display: block; }
+.section-title { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: clamp(28px, 4vw, 48px); color: var(--cream); line-height: 1.2; letter-spacing: -.5px; margin-bottom: 16px; }
+.section-sub { font-size: 15px; font-weight: 300; color: var(--cream-dim); line-height: 1.8; max-width: 520px; }
 .beginner { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.beginner-inner {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-}
+.beginner-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 .check-list { display: flex; flex-direction: column; gap: 16px; margin: 28px 0; }
-.check-row {
-  display: flex; align-items: flex-start; gap: 14px;
-  font-size: 14px; font-weight: 300; color: var(--cream-dim); line-height: 1.6;
-}
-.check-mark {
-  width: 18px; height: 18px; border: 1px solid var(--gold);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; margin-top: 3px;
-  font-size: 10px; color: var(--gold);
-}
-.highlight-panel {
-  border: 1px solid var(--border);
-  padding: 40px; background: var(--gold-dim2);
-}
-.highlight-panel h3 {
-  font-family: 'Playfair Display', serif;
-  font-style: italic; font-weight: 400;
-  font-size: 24px; color: var(--cream);
-  margin-bottom: 16px; line-height: 1.3;
-}
+.check-row { display: flex; align-items: flex-start; gap: 14px; font-size: 14px; font-weight: 300; color: var(--cream-dim); line-height: 1.6; }
+.check-mark { font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+.highlight-panel { border: 1px solid var(--border); padding: 40px; background: var(--gold-dim2); }
+.highlight-panel h3 { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: 24px; color: var(--cream); margin-bottom: 16px; line-height: 1.3; }
 .highlight-panel p { font-size: 14px; font-weight: 300; color: var(--cream-dim); line-height: 1.8; }
-.highlight-tag {
-  display: inline-block; margin-top: 24px;
-  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--gold); border-bottom: 1px solid var(--gold);
-  padding-bottom: 3px;
-}
-
-/* ══════════ SKILLS ══════════ */
+.highlight-tag { display: inline-block; margin-top: 24px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 3px; }
 .skills { background: var(--bg); }
 .skills-header { text-align: center; max-width: 560px; margin: 0 auto 64px; }
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1px; background: var(--border);
-  border: 1px solid var(--border);
-}
-.skill-card {
-  background: var(--bg); padding: 28px 24px;
-  transition: background .25s;
-}
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.skill-card { background: var(--bg); padding: 28px 24px; transition: background .25s; }
 .skill-card:hover { background: var(--gold-dim2); }
-.skill-num {
-  font-family: 'Playfair Display', serif; font-style: italic;
-  font-size: 13px; color: var(--gold); opacity: .6;
-  margin-bottom: 12px; display: block;
-}
-.skill-name {
-  font-size: 14px; font-weight: 500; color: var(--cream);
-  margin-bottom: 6px; line-height: 1.4;
-}
+.skill-num { font-family: 'Playfair Display', serif; font-style: italic; font-size: 13px; color: var(--gold); opacity: .6; margin-bottom: 12px; display: block; }
+.skill-name { font-size: 14px; font-weight: 500; color: var(--cream); margin-bottom: 6px; line-height: 1.4; }
 .skill-desc { font-size: 12px; font-weight: 300; color: var(--cream-dim); line-height: 1.7; }
-
-/* ══════════ AI SECTION ══════════ */
 .ai-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .ai-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
 .ai-features { display: flex; flex-direction: column; gap: 0; margin-top: 36px; }
-.ai-feat {
-  display: flex; gap: 16px; padding: 20px 0;
-  border-bottom: 1px solid var(--border2);
-}
+.ai-feat { display: flex; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--border2); }
 .ai-feat:first-child { border-top: 1px solid var(--border2); }
-.ai-feat-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+.ai-feat-icon { font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold); font-size: 18px; flex-shrink: 0; margin-top: 2px; }
 .ai-feat-title { font-size: 14px; font-weight: 500; color: var(--cream); margin-bottom: 3px; }
 .ai-feat-desc { font-size: 12px; font-weight: 300; color: var(--cream-dim); line-height: 1.6; }
 .ai-chat-panel { border: 1px solid var(--border); padding: 32px; margin-top: 20px; }
-.ai-chat-label {
-  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 24px; display: block;
-}
+.ai-chat-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; display: block; }
 .ai-chat { display: flex; flex-direction: column; gap: 16px; }
-.chat-bubble {
-  padding: 14px 18px;
-  font-size: 13px; font-weight: 300; line-height: 1.7;
-  max-width: 88%;
-}
-.chat-user {
-  background: var(--gold-dim); color: var(--cream);
-  align-self: flex-end;
-  border-left: 2px solid var(--gold);
-}
-.chat-claude {
-  background: var(--bg3); color: var(--cream-dim);
-  border-left: 2px solid var(--border2);
-}
-
-/* ══════════ WHO IT'S FOR ══════════ */
+.chat-bubble { padding: 14px 18px; font-size: 13px; font-weight: 300; line-height: 1.7; max-width: 88%; }
+.chat-user { background: var(--gold-dim); color: var(--cream); align-self: flex-end; border-left: 2px solid var(--gold); }
+.chat-claude { background: var(--bg3); color: var(--cream-dim); border-left: 2px solid var(--border2); }
 .who { background: var(--bg); }
 .who-header { text-align: center; max-width: 520px; margin: 0 auto 64px; }
-.who-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px; background: var(--border);
-  border: 1px solid var(--border);
-}
-.who-card {
-  background: var(--bg); padding: 24px;
-  display: flex; align-items: center; gap: 14px;
-  transition: background .25s;
-}
+.who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.who-card { background: var(--bg); padding: 24px; transition: background .25s; }
 .who-card:hover { background: var(--gold-dim2); }
-.who-emoji { font-size: 20px; flex-shrink: 0; }
 .who-title { font-size: 13px; font-weight: 400; color: var(--cream-dim); line-height: 1.4; }
-
-/* ══════════ FOLLOW ══════════ */
 .follow { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; }
 .follow .section-sub { margin: 0 auto 48px; }
 .social-row { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
-.social-btn {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-  font-weight: 400; padding: 14px 28px;
-  border: 1px solid var(--border); color: var(--cream-dim);
-  background: transparent; transition: all .25s; cursor: pointer;
-}
+.social-btn { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 400; padding: 14px 28px; border: 1px solid var(--border); color: var(--cream-dim); background: transparent; transition: all .25s; cursor: pointer; }
 .social-btn:hover { border-color: var(--gold); color: var(--gold); }
-.social-btn svg { flex-shrink: 0; }
-
-/* ══════════ FAQ ══════════ */
 .faq { background: var(--bg); }
 .faq-header { text-align: center; max-width: 520px; margin: 0 auto 64px; }
 .faq-list { max-width: 660px; margin: 0 auto; }
 .faq-item { border-bottom: 1px solid var(--border); }
 .faq-item:first-child { border-top: 1px solid var(--border); }
-.faq-q {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 24px 0; cursor: pointer; gap: 20px;
-  font-size: 15px; font-weight: 400; color: var(--cream);
-  background: none; border: none; width: 100%; text-align: left;
-  font-family: 'DM Sans', sans-serif; transition: color .2s;
-}
+.faq-q { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; cursor: pointer; gap: 20px; font-size: 15px; font-weight: 400; color: var(--cream); background: none; border: none; width: 100%; text-align: left; font-family: 'DM Sans', sans-serif; transition: color .2s; }
 .faq-q:hover { color: var(--gold); }
-.faq-icon {
-  font-size: 20px; color: var(--gold); flex-shrink: 0;
-  font-family: 'Playfair Display', serif; font-style: italic;
-  transition: transform .3s;
-}
+.faq-icon { font-size: 20px; color: var(--gold); flex-shrink: 0; font-family: 'Playfair Display', serif; font-style: italic; transition: transform .3s; }
 .faq-item.open .faq-icon { transform: rotate(45deg); }
-.faq-a {
-  max-height: 0; overflow: hidden;
-  transition: max-height .35s ease, padding .35s ease;
-  font-size: 14px; font-weight: 300; color: var(--cream-dim); line-height: 1.8;
-  padding: 0;
-}
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s ease; font-size: 14px; font-weight: 300; color: var(--cream-dim); line-height: 1.8; padding: 0; }
 .faq-item.open .faq-a { max-height: 200px; padding: 0 0 24px; }
-
-/* ══════════ FOOTER ══════════ */
-footer {
-  background: #2a0b12; padding: 60px 48px 40px;
-  border-top: 1px solid var(--border);
-}
-.footer-inner {
-  max-width: 1080px; margin: 0 auto;
-  display: flex; flex-direction: column; align-items: center; gap: 28px;
-}
-.footer-logo {
-  font-family: 'Playfair Display', serif;
-  font-style: italic; font-size: 22px; font-weight: 400;
-  color: var(--cream);
-}
-.footer-tagline {
-  font-size: 13px; font-weight: 300; color: var(--cream-dim);
-  text-align: center; max-width: 380px; line-height: 1.7;
-}
+footer { background: #2a0b12; padding: 60px 48px 40px; border-top: 1px solid var(--border); }
+.footer-inner { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.footer-logo { font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px; font-weight: 400; color: var(--cream); }
+.footer-tagline { font-size: 13px; font-weight: 300; color: var(--cream-dim); text-align: center; max-width: 380px; line-height: 1.7; }
 .footer-links { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; justify-content: center; }
-.footer-links a {
-  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
-  color: rgba(245,240,236,0.3); transition: color .2s;
-  display: flex; align-items: center; gap: 7px;
-}
+.footer-links a { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(245,240,236,0.3); transition: color .2s; }
 .footer-links a:hover { color: var(--gold); }
 .footer-rule { width: 60px; height: 1px; background: var(--border); }
-.footer-copy {
-  font-size: 11px; letter-spacing: .5px;
-  color: rgba(245,240,236,0.2);
-}
-
-/* ══════════ REVEAL ══════════ */
+.footer-copy { font-size: 11px; letter-spacing: .5px; color: rgba(245,240,236,0.2); }
 .reveal { opacity: 1; transform: translateY(0); transition: all .7s cubic-bezier(.16,1,.3,1); }
 .reveal.hidden { opacity: 0; transform: translateY(24px); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
-.delay-1 { transition-delay: .1s; }
-.delay-2 { transition-delay: .2s; }
-.delay-3 { transition-delay: .3s; }
-
-/* ══════════ RESPONSIVE ══════════ */
+.delay-1 { transition-delay: .1s; } .delay-2 { transition-delay: .2s; }
 @media (max-width: 900px) {
-  nav { padding: 20px 24px; }
-  nav.scrolled { padding: 14px 24px; }
-  .hero-handle { left: 24px; }
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
+  nav { padding: 20px 24px; } nav.scrolled { padding: 14px 24px; }
+  .nav-links { display: none; } .hamburger { display: flex; }
   .beginner-inner, .ai-inner { grid-template-columns: 1fr; gap: 48px; }
-  section { padding: 72px 24px; }
-  .hero { padding: 120px 24px 80px; }
+  section { padding: 72px 24px; } .hero { padding: 120px 24px 80px; }
 }
 @media (max-width: 600px) {
   .skills-grid { grid-template-columns: 1fr 1fr; }
@@ -409,8 +138,6 @@ footer {
 </style>
 </head>
 <body>
-
-<!-- NAV -->
 <nav id="navbar">
   <div class="nav-logo">The Workflow Genies</div>
   <div class="nav-links">
@@ -418,52 +145,33 @@ footer {
     <a href="#who">Who It's For</a>
     <a href="#faq">FAQ</a>
   </div>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
-
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-close" onclick="closeMenu()">×</button>
   <a href="#learn" onclick="closeMenu()">Curriculum</a>
   <a href="#who" onclick="closeMenu()">Who It's For</a>
   <a href="#faq" onclick="closeMenu()">FAQ</a>
 </div>
-
-<!-- HERO -->
 <section class="hero" id="waitlist">
-    <div class="hero-inner">
+  <div class="hero-inner">
     <span class="hero-eyebrow">Coming Soon — Early Access</span>
     <h1>Become the Operator<br>Everyone Depends On</h1>
     <p class="hero-sub">Learn project management, operations, AI, automation, workflows, documentation, and modern business tools through practical simulations and real-world scenarios.</p>
-
     <div class="waitlist-form">
-      <div class="form-success" id="formSuccess">
-        You're officially on the waitlist.
-      </div>
+      <div class="form-success" id="formSuccess">You're officially on the waitlist.</div>
       <div id="formInner">
         <div class="form-row">
-          <div class="form-field">
-            <input type="text" id="firstName" placeholder="First name" required autocomplete="given-name">
-            <span class="form-error" id="nameError">Please enter your first name.</span>
-          </div>
-          <div class="form-field">
-            <input type="email" id="email" placeholder="Email address" required autocomplete="email">
-            <span class="form-error" id="emailError">Please enter a valid email.</span>
-          </div>
-          <button class="btn-primary" id="submitBtn" onclick="submitWaitlist()">
-            Join the Waitlist
-          </button>
+          <div class="form-field"><input type="text" id="firstName" placeholder="First name" required autocomplete="given-name"><span class="form-error" id="nameError">Please enter your first name.</span></div>
+          <div class="form-field"><input type="email" id="email" placeholder="Email address" required autocomplete="email"><span class="form-error" id="emailError">Please enter a valid email.</span></div>
+          <button class="btn-primary" id="submitBtn" onclick="submitWaitlist()">Join the Waitlist</button>
         </div>
         <p class="form-note">No spam, ever. Unsubscribe anytime.</p>
       </div>
     </div>
   </div>
 </section>
-
 <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
-
-<!-- BEGINNER -->
 <section class="beginner">
   <div class="container">
     <div class="beginner-inner">
@@ -476,9 +184,7 @@ footer {
           <div class="check-row"><div class="check-mark">—</div> Never used ClickUp, Asana, Notion, or Miro?</div>
           <div class="check-row"><div class="check-mark">—</div> Never worked with AI tools like Claude?</div>
         </div>
-        <p style="font-size:14px;font-weight:300;color:var(--cream-dim);line-height:1.8;">
-          Perfect. Everything is taught from scratch — simple language, real examples, hands-on practice. No experience required.
-        </p>
+        <p style="font-size:14px;font-weight:300;color:var(--cream-dim);line-height:1.8;">Perfect. Everything is taught from scratch — simple language, real examples, hands-on practice. No experience required.</p>
       </div>
       <div class="reveal delay-2">
         <div class="highlight-panel">
@@ -490,16 +196,13 @@ footer {
     </div>
   </div>
 </section>
-
 <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
-
-<!-- SKILLS -->
 <section class="skills" id="learn">
   <div class="container">
     <div class="skills-header reveal">
       <span class="section-eyebrow">Curriculum</span>
       <h2 class="section-title">What You'll Learn</h2>
-      <p class="section-sub" style="margin:0 auto;">14+ practical skills taught through real scenarios, simulations, and hands-on practice.</p>
+      <p class="section-sub" style="margin:0 auto;">12 practical skills taught through real scenarios, simulations, and hands-on practice.</p>
     </div>
     <div class="skills-grid">
       <div class="skill-card reveal delay-1"><span class="skill-num">01</span><div class="skill-name">Project Management</div><div class="skill-desc">Plan, track, and deliver projects on time using real frameworks and tools.</div></div>
@@ -517,10 +220,7 @@ footer {
     </div>
   </div>
 </section>
-
 <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
-
-<!-- AI SECTION -->
 <section class="ai-section">
   <div class="container">
     <div class="ai-inner">
@@ -529,11 +229,11 @@ footer {
         <h2 class="section-title">The Best Operators Don't Work Alone</h2>
         <p class="section-sub">Modern operators don't just learn tools — they learn how to work with AI. Claude becomes your thinking partner, writing assistant, and workflow builder.</p>
         <div class="ai-features">
-          <div class="ai-feat"><div class="ai-feat-icon" style="font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:18px;">—</div><div><div class="ai-feat-title">Document processes faster</div><div class="ai-feat-desc">Turn a quick voice note into a full SOP in minutes.</div></div></div>
-          <div class="ai-feat"><div class="ai-feat-icon" style="font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:18px;">—</div><div><div class="ai-feat-title">Create SOPs automatically</div><div class="ai-feat-desc">Feed Claude a process description and get a formatted SOP back.</div></div></div>
-          <div class="ai-feat"><div class="ai-feat-icon" style="font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:18px;">—</div><div><div class="ai-feat-title">Brainstorm and pressure-test ideas</div><div class="ai-feat-desc">Use Claude to find gaps before they become problems.</div></div></div>
-          <div class="ai-feat"><div class="ai-feat-icon" style="font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:18px;">—</div><div><div class="ai-feat-title">Organise and map workflows</div><div class="ai-feat-desc">Describe messy processes; Claude maps them into clean steps.</div></div></div>
-          <div class="ai-feat"><div class="ai-feat-icon" style="font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:18px;">—</div><div><div class="ai-feat-title">Improve daily productivity</div><div class="ai-feat-desc">Spend less time on repetitive work, more on high-impact ops.</div></div></div>
+          <div class="ai-feat"><div class="ai-feat-icon">—</div><div><div class="ai-feat-title">Document processes faster</div><div class="ai-feat-desc">Turn a quick voice note into a full SOP in minutes.</div></div></div>
+          <div class="ai-feat"><div class="ai-feat-icon">—</div><div><div class="ai-feat-title">Create SOPs automatically</div><div class="ai-feat-desc">Feed Claude a process description and get a formatted SOP back.</div></div></div>
+          <div class="ai-feat"><div class="ai-feat-icon">—</div><div><div class="ai-feat-title">Brainstorm and pressure-test ideas</div><div class="ai-feat-desc">Use Claude to find gaps before they become problems.</div></div></div>
+          <div class="ai-feat"><div class="ai-feat-icon">—</div><div><div class="ai-feat-title">Organise and map workflows</div><div class="ai-feat-desc">Describe messy processes; Claude maps them into clean steps.</div></div></div>
+          <div class="ai-feat"><div class="ai-feat-icon">—</div><div><div class="ai-feat-title">Improve daily productivity</div><div class="ai-feat-desc">Spend less time on repetitive work, more on high-impact ops.</div></div></div>
         </div>
       </div>
       <div class="reveal delay-2">
@@ -550,10 +250,7 @@ footer {
     </div>
   </div>
 </section>
-
 <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
-
-<!-- WHO IT'S FOR -->
 <section class="who" id="who">
   <div class="container">
     <div class="who-header reveal">
@@ -571,10 +268,7 @@ footer {
     </div>
   </div>
 </section>
-
 <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
-
-<!-- FOLLOW -->
 <section class="follow" id="follow">
   <div class="container">
     <div class="reveal" style="text-align:center;">
@@ -582,26 +276,14 @@ footer {
       <h2 class="section-title">Follow the Journey</h2>
       <p class="section-sub">Get updates, workflow tips, AI breakdowns, and launch announcements — wherever you hang out.</p>
       <div class="social-row">
-        <a class="social-btn" href="https://www.linkedin.com/company/the-workflow-genies" target="_blank" rel="noopener">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-        <a class="social-btn" href="https://www.instagram.com/theworkflowgenies/" target="_blank" rel="noopener">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-          Instagram
-        </a>
-        <a class="social-btn" href="https://x.com/WorkflowGenies" target="_blank" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          X (Twitter)
-        </a>
+        <a class="social-btn" href="https://www.linkedin.com/company/the-workflow-genies" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
+        <a class="social-btn" href="https://www.instagram.com/theworkflowgenies/" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg> Instagram</a>
+        <a class="social-btn" href="https://x.com/WorkflowGenies" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> X (Twitter)</a>
       </div>
     </div>
   </div>
 </section>
-
 <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
-
-<!-- FAQ -->
 <section class="faq" id="faq">
   <div class="container">
     <div class="faq-header reveal">
@@ -609,53 +291,35 @@ footer {
       <h2 class="section-title">Questions</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Is this beginner-friendly?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Absolutely. The Workflow Genies was designed from the ground up for complete beginners. Every concept is broken down into simple language with real examples and hands-on exercises. If you've never touched an ops tool before, you're in exactly the right place.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Do I need any experience to join?<span class="faq-icon">+</span></button>
-        <div class="faq-a">None at all. Zero experience is required. We start from the very basics and build your skills progressively. All you need is curiosity and willingness to learn.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Do I need to know Notion or ClickUp already?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Not at all. We teach every tool from scratch — ClickUp, Asana, Notion, Miro, Make.com, Claude, and more. You'll go from "what is this?" to confidently building systems inside each tool.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">When does it launch?<span class="faq-icon">+</span></button>
-        <div class="faq-a">We're actively building and will announce the launch date to our waitlist first. Join above to be the first to know and to get early access when we open doors.</div>
-      </div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is this beginner-friendly?<span class="faq-icon">+</span></button><div class="faq-a">Absolutely. The Workflow Genies was designed from the ground up for complete beginners. Every concept is broken down into simple language with real examples and hands-on exercises. If you've never touched an ops tool before, you're in exactly the right place.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do I need any experience to join?<span class="faq-icon">+</span></button><div class="faq-a">None at all. Zero experience is required. We start from the very basics and build your skills progressively. All you need is curiosity and willingness to learn.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do I need to know Notion or ClickUp already?<span class="faq-icon">+</span></button><div class="faq-a">Not at all. We teach every tool from scratch — ClickUp, Asana, Notion, Miro, Make.com, Claude, and more. You'll go from "what is this?" to confidently building systems inside each tool.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">When does it launch?<span class="faq-icon">+</span></button><div class="faq-a">We're actively building and will announce the launch date to our waitlist first. Join above to be the first to know and to get early access when we open doors.</div></div>
     </div>
   </div>
 </section>
-
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">The Workflow Genies</div>
     <p class="footer-tagline">Helping the next generation of operators build systems, workflows, and careers.</p>
     <div class="footer-links">
-      <a href="https://www.linkedin.com/company/the-workflow-genies" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.linkedin.com/company/the-workflow-genies" target="_blank">LinkedIn</a>
       <div class="footer-rule"></div>
-      <a href="https://www.instagram.com/theworkflowgenies/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.instagram.com/theworkflowgenies/" target="_blank">Instagram</a>
       <div class="footer-rule"></div>
-      <a href="https://x.com/WorkflowGenies" target="_blank" rel="noopener">X (Twitter)</a>
+      <a href="https://x.com/WorkflowGenies" target="_blank">X (Twitter)</a>
       <div class="footer-rule"></div>
       <a href="mailto:theworkflowgenies@gmail.com">Contact</a>
     </div>
     <p class="footer-copy">© 2025 The Workflow Genies. All rights reserved.</p>
   </div>
 </footer>
-
-<!-- SCRIPTS -->
 <script>
-/* EmailJS */
-const EMAILJS_PUBLIC_KEY        = 'V6nqyCoB2oWK8uIV';
-const EMAILJS_SERVICE_ID        = 'service_jfys8eh';
-const EMAILJS_TEMPLATE_ID       = 'template_4aamvda';
+const EMAILJS_PUBLIC_KEY         = 'V6nqyCoB2oWK8uIV';
+const EMAILJS_SERVICE_ID         = 'service_jfys8eh';
+const EMAILJS_TEMPLATE_ID        = 'template_4aamvda';
 const EMAILJS_AUTOREPLY_TEMPLATE = 'template_67wtmzs';
 (function(){ emailjs.init(EMAILJS_PUBLIC_KEY); })();
-
 function submitWaitlist() {
   const firstName = document.getElementById('firstName').value.trim();
   const email     = document.getElementById('email').value.trim();
@@ -668,16 +332,12 @@ function submitWaitlist() {
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { emailErr.style.display = 'block'; valid = false; }
   if (!valid) return;
   btn.disabled = true; btn.textContent = 'Joining...';
-  var params = {
-    from_name: firstName, from_email: email,
-    timestamp: new Date().toLocaleString(),
-    message: firstName + ' (' + email + ') joined the waitlist on ' + new Date().toLocaleString()
-  };
+  var params = { from_name: firstName, from_email: email, name: firstName, email: email, timestamp: new Date().toLocaleString(), message: firstName + ' (' + email + ') joined the waitlist on ' + new Date().toLocaleString() };
   Promise.all([
     emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params),
     emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_AUTOREPLY_TEMPLATE, params)
   ]).then(function() {
-    document.getElementById('formInner').style.display  = 'none';
+    document.getElementById('formInner').style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
   }).catch(function(err) {
     console.error('EmailJS error:', err);
@@ -685,43 +345,15 @@ function submitWaitlist() {
     alert('Something went wrong. Please try again.');
   });
 }
-
-/* FAQ */
-function toggleFaq(btn) {
-  const item = btn.closest('.faq-item');
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
-}
-
-/* Mobile menu */
+function toggleFaq(btn) { const item = btn.closest('.faq-item'); const isOpen = item.classList.contains('open'); document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open')); if (!isOpen) item.classList.add('open'); }
 function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
-function closeMenu()  { document.getElementById('mobileMenu').classList.remove('open'); }
-
-/* Navbar scroll */
-window.addEventListener('scroll', function() {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
-});
-
-/* Reveal */
+function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+window.addEventListener('scroll', function() { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40); });
 document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('hidden'); });
-const observer = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) {
-    if (e.isIntersecting) { e.target.classList.remove('hidden'); e.target.classList.add('visible'); observer.unobserve(e.target); }
-  });
-}, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+const observer = new IntersectionObserver(function(entries) { entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.remove('hidden'); e.target.classList.add('visible'); observer.unobserve(e.target); } }); }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
-setTimeout(function() {
-  document.querySelectorAll('.reveal.hidden').forEach(function(el) {
-    var rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight) { el.classList.remove('hidden'); el.classList.add('visible'); }
-  });
-}, 100);
-
-/* Enter key */
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Enter' && (document.activeElement.id === 'firstName' || document.activeElement.id === 'email')) submitWaitlist();
-});
+setTimeout(function() { document.querySelectorAll('.reveal.hidden').forEach(function(el) { var rect = el.getBoundingClientRect(); if (rect.top < window.innerHeight) { el.classList.remove('hidden'); el.classList.add('visible'); } }); }, 100);
+document.addEventListener('keydown', function(e) { if (e.key === 'Enter' && (document.activeElement.id === 'firstName' || document.activeElement.id === 'email')) submitWaitlist(); });
 </script>
 </body>
 </html>
